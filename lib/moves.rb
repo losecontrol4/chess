@@ -58,7 +58,6 @@ module Moves
     #no need to do an out of bounds check, pawns can't actually go out of bounds.
     
     factor = is_white ? -1 : 1
-    factor = factor * -1 if self.is_a?(King)
     row = @curr_location[0]
     col = @curr_location[1]
  
@@ -83,6 +82,11 @@ module Moves
         possible_moves.add([row + factor, col + i])
         end
       end
+    end
+
+    #en_passant
+    if self.is_a?(Pawn) && @passant != 0
+      possible_moves.add([row + factor, col + @passant])
     end
     possible_moves
   end

@@ -1,5 +1,8 @@
 Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
 
+# This file hasn't been used since I implemented saving and loading games and had the game working. It's much easier to debug 
+# that way and most of these functions are now private.
+
 
 # test = Chess.new(Player.new("Adam"), Player.new("Courtney"))
 
@@ -12,7 +15,12 @@ Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
 # p test.white_king.in_check
 # puts test
 
+p1 = Player.new("Adam")
+p2 = Player.new("Courtney")
+test = Chess.new(p1, p2)
+test.save
 
+#these function are no longer working because these functions are now private
 def test_checkmate
     p1 = Player.new("Adam")
     p2 = Player.new("Courtney")
@@ -22,10 +30,22 @@ def test_checkmate
     test.make_move(true, Chess.algnot_to_cord('d1'), Chess.algnot_to_cord('h5'))
     test.make_move(true, Chess.algnot_to_cord('h5'), Chess.algnot_to_cord('f7'))
     test.update_checkmate(p2)
-    p test.checkmate
+  
 end
 
-test_checkmate
+def test_check_by_pawn
+    p1 = Player.new("Adam")
+    p2 = Player.new("Courtney")
+    test = Chess.new(p1, p2)
+    test.make_move(true, Chess.algnot_to_cord('g2'), Chess.algnot_to_cord('g4'))
+    test.make_move(true, Chess.algnot_to_cord('g4'), Chess.algnot_to_cord('g5'))
+    test.make_move(true, Chess.algnot_to_cord('g5'), Chess.algnot_to_cord('g6'))
+    test.make_move(true, Chess.algnot_to_cord('g6'), Chess.algnot_to_cord('f7'))
+    puts test
+    test.update_checkmate(p2)
+end
+
+#test_check_by_pawn
 
 # p test.make_move(true, [6, 0], [5, 0])
 # p test.make_move(true, [6, 0], [5, 0])

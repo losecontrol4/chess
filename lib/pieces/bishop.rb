@@ -2,8 +2,7 @@ require_relative 'piece'
 
 class Bishop < Piece
 
-
-  attr_reader :token
+  attr_reader :token 
 
   def initialize(is_white, curr_location)
     super

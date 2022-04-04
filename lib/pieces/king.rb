@@ -3,17 +3,23 @@ require_relative 'piece'
 
 class King < Piece
   attr_accessor :in_check
-  attr_reader :token
+  attr_reader :token, :moved
 
   def initialize(is_white, curr_location)
     super
     @token = @is_white ? '♔' : '♚'
     @in_check = false
+    @moved = false
   end
   
   def update_possible_moves(board)
     @possible_moves = get_possible_king_moves(board) #from module
    end
+  
+  def move(cords)
+    @curr_location = cords
+    @moved = true
+  end
 
   def update_in_check(board)
     @in_check = false
