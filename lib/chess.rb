@@ -1,18 +1,12 @@
 Dir[File.join(__dir__, 'pieces', '*.rb')].each { |file| require file }
 
-# To DO: Special moves, Clean up messages and comments
-
-# chose against implementing el passant
-# Castling
-# Can't happen when, king or rook moved, or when in check
-# Castling is indicated by the special notations 0-0 (for kingside castling) and 0-0-0 (queenside castling).
-
-# el passant
+# where all the magic happens, ties everything together with a chess class that handles playing a game of chess
 class Chess
   attr_accessor :board, :white_pieces, :black_pieces, :white_king, :black_king, :player1, :player2, :player1_turn,
                 :checkmate, :passant_pawn
 
-  # unfortunately I had to use accessor for so many variables becauese I needed to access them all on another chess object in this class
+  # unfortunately I had to use accessor for so many variables becauese I needed to access them all on another chess object inside this class
+  # I can definitely turn many of these into readers
 
   def initialize(white_p, black_p)
     @board = get_new_board
@@ -51,7 +45,6 @@ class Chess
       result = take_turn(turn_taker)
       move_done = false
 
-  
       if result == 'undo'
         if @past_states.length < 2
           puts 'There are no moves to undo'
@@ -61,13 +54,10 @@ class Chess
         end
         next
       end
-
-
       if result == 'save'
         save
         next
       end
-
       if result == 'help'
         introduction
         next
@@ -99,14 +89,16 @@ class Chess
   end
 
   def self.load(path)
-    # give a full existing path
-    # File.exist?(path)
+    # give a full existing path, returns a chess object
     Marshal.load(File.read(path))
   end
 
+
+  # everything behind this is functions the class uses
   private
 
   def update(chess)
+    #For use to change to a previous state with undo
     @board = chess.board
     @white_pieces = chess.white_pieces
     @black_pieces = chess.black_pieces
@@ -122,8 +114,8 @@ class Chess
   def new_state
     temp = @past_states
     @past_states = nil
-    result = Marshal.load(Marshal.dump(self)) # apparently the ruby way to deep copy an object. It's a little slow, but negligible for the purposes used here.
-    @past_states = temp # optimzation to avoid storing each previous state in each state, making the game scale n^2 where n = moves done. Now it's scales a O(1)
+    result = Marshal.load(Marshal.dump(self)) # apparently the built in ruby way to deep copy an object. It's a little slow, but negligible for the purposes used here.
+    @past_states = temp # optimzation to avoid storing each previous state in each state, making the game scale in an insane way, read about this bug in my readme
     result
   end
 
@@ -156,7 +148,7 @@ class Chess
         piece_type = @board[location[0]][location[1]].class
         puts "That is not a valid move for the #{piece_type} you selected."
       when 4
-        puts 'You cannot make a move that leaves you in check.'
+        puts 'You cannot make a move that leaves git comyou in check.'
       when 5 # castling checks
         puts 'You cannot castle while you are in check.'
       when 6
@@ -327,23 +319,6 @@ class Chess
     false
   end
 
-  def piece_row(is_white, row, row_index)
-    8.times do |i|
-      row[i] = case i
-               when 0, 7
-                 Rook.new(is_white, [row_index, i])
-               when 1, 6
-                 Knight.new(is_white, [row_index, i])
-               when 3
-                 Queen.new(is_white, [row_index, i])
-               when 4
-                 King.new(is_white, [row_index, i])
-               else
-                 Bishop.new(is_white, [row_index, i])
-               end
-    end
-  end
-
   def checkmate?(king)
     # call when already in check.
     # first check if king can move, else I will brute force it. Considering check is usally resolved by moving the king,
@@ -372,12 +347,32 @@ class Chess
   end
 
   def pawn_row(is_white, row, row_index)
+    #For use with creating a new board
     8.times do |i|
       row[i] = Pawn.new(is_white, [row_index, i])
     end
   end
 
+  def piece_row(is_white, row, row_index)
+    #For use with creating a new board
+    8.times do |i|
+      row[i] = case i
+               when 0, 7
+                 Rook.new(is_white, [row_index, i])
+               when 1, 6
+                 Knight.new(is_white, [row_index, i])
+               when 3
+                 Queen.new(is_white, [row_index, i])
+               when 4
+                 King.new(is_white, [row_index, i])
+               else
+                 Bishop.new(is_white, [row_index, i])
+               end
+    end
+  end
+
   def to_s
+    #For printing the board
     result = ''
     divider = '   +---+---+---+---+---+---+---+---+'
     result += divider
@@ -415,4 +410,4 @@ end
 #   +---+---+---+---+---+---+---+---+
 # 1 |   |   |   |   |   |   |   |   |
 #   +---+---+---+---+---+---+---+---+
-#
+#     A   B   C   D   E   F   G  H

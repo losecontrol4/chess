@@ -15,14 +15,13 @@ class Player
     end
   
     def get_move
-      # returns a valid string that is acceptable input
+      # returns a valid string obtained from the player that is acceptable input
       puts "#{@name}, what's your move?"
       input_valid = false
+
       until input_valid
         input = gets.chomp
-    
-        #valid inputs a2e5 D4 E3  
-        
+  
         if input.length != 4 && input.length != 5 
           return input.downcase if input.downcase == 'ooo' || input.downcase == 'oo' || input == '000' || input == '00'
           #checks that here for optimzation reasons
@@ -33,7 +32,7 @@ class Player
         return input.downcase if input.downcase == 'save' || input.downcase == 'undo' || input.downcase == 'help'
   
         input = input.gsub(/\s+/, "")
-        input = input.split("") #turns it to an array
+        input = input.split("") #turns it to an array to be able to traverse through each character
         valid_char =  Array("A".."H") +  Array("a".."h")
         input_valid = true
         

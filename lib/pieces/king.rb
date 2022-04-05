@@ -1,5 +1,4 @@
 require_relative 'piece'
-# require_relative '../movement_modules/king_like'
 
 class King < Piece
   attr_accessor :in_check
@@ -22,6 +21,10 @@ class King < Piece
   end
 
   def update_in_check(board)
+    # this is the most interesting thing I did in this program, and what I spent time planning around before I wrote the code
+    # To find if the king is in check, instead of checking every single piece, I only check for the king, giving it the movement
+    # of every other piece. All of these functions serve a slightly different purpose when called by a king. 
+    # They will change it's in check variable if it runs into a piece that could hit the king.
     @in_check = false
     get_possible_diagonal_moves(board) 
     get_possible_vh_moves(board) unless @in_check 

@@ -55,12 +55,12 @@ module Moves
   end
 
   def get_possible_pawn_moves(board)
-    #no need to do an out of bounds check, pawns can't actually go out of bounds.
     
-    factor = is_white ? -1 : 1
+    factor = is_white ? -1 : 1 #since pawns can only go forward
     row = @curr_location[0]
     col = @curr_location[1]
  
+
     possible_moves = Set.new
     row = @curr_location[0]
     col = @curr_location[1]

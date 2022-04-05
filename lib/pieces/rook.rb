@@ -8,7 +8,7 @@ class Rook < Piece
   def initialize(is_white, curr_location)
     super
     @token = @is_white ? '♖' : '♜'
-    @moved = false
+    @moved = false #moved is used for castling
   end
 
  def update_possible_moves(board)

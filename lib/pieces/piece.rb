@@ -12,7 +12,6 @@ class Piece
     @is_white = is_white
     @curr_location = curr_location
     @is_alive = true
-    @attacking_king = false
     @possible_moves = Set.new
   end
 

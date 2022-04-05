@@ -1,9 +1,7 @@
 require_relative 'piece'
-#currently need a way to make moved = true
 class Pawn < Piece
   attr_reader :token
-  #maybe make it a writer
-  attr_writer :passant
+  attr_writer :passant #only read by the module
 
   def initialize(is_white, curr_location)
     super

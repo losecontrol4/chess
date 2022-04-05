@@ -1,7 +1,7 @@
 Dir[File.join(__dir__, 'lib', '*.rb')].each { |file| require file }
 
 # This file hasn't been used since I implemented saving and loading games and had the game working. It's much easier to debug 
-# that way and most of these functions are now private.
+# that way and most of these functions are now private. Ergo this file is mostly useless now
 
 
 # test = Chess.new(Player.new("Adam"), Player.new("Courtney"))
