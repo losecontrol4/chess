@@ -61,8 +61,10 @@ The culprit: past states. Luckily, this performance bug was quick to find, becau
 
 ### math
 
-    What happens when you add a state of a class to an array when the class includes an array of pasts states. Well...this
-    with x = turn you are on. [x] = contains everything within state x in addition to itself. Nil is a class that has nothing in it's state_array, a number is an instance of the object class. The same number refers to the same instance.
+    What happens when you add a state of a class to an array when the class includes an array of
+    pasts states. Well...this with x = turn you are on. [x] = contains everything within state x in addition to itself.
+    Nil is a class that has nothing in it's state_array, a number is an instance of the object class.
+    The same number refers to the same instance.
 
     State_array(x) = [1] -> nil
                      [2] -> [1]
@@ -87,7 +89,12 @@ The culprit: past states. Luckily, this performance bug was quick to find, becau
 
 
 
-    As you could see, this scales extremely quick, making even something as low computational power as chess lag. The solution was simply to exclude the serialization of the state array at all, storing it in a temp variable, setting it to nil, then compressing, then putting the temp variable into it. But that's not the interesting bit. The interesting bit is interpreting this as O(x) where x is which turn you are on and it is equal to the number of chess states stored.
+    As you could see, this scales extremely quick, making even something as
+    low computational power as chess lag. The solution was simply to exclude the s
+    erialization of the state array at all, storing it in a temp variable, setting it to nil,
+    then compressing, then putting the temp variable into it. But that's not the interesting bit.
+    The interesting bit is interpreting this as O(x) where x is which turn you are on and it is
+    equal to the number of chess states stored.
 
     To grasp what is actually going on, let's watch it grow.
 
