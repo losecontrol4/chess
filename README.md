@@ -48,16 +48,16 @@ save_files - stores marshal encodings of all saved games
 
 ## an interesting problem
 
-    Take everything below this more as a blog post for a problem I ran into. One of the hardest type of problems to solve is a performance problem, because it can become a game of where's waldo with your code, searching to find what's causing the problem with little ability to narrow it down. Yet, this type of problem was the most interesting one I ran into while programming this
-    game of chess.
+Take everything below this more as a blog post for a problem I ran into. One of the hardest type of problems to solve is a performance problem, because it can become a game of where's waldo with your code, searching to find what's causing the problem with little ability to narrow it down. Yet, this type of problem was the most interesting one I ran into while programming this
+game of chess.
 
 ## what happened?
 
-    Each turn I took, the game took longer and longer to load, to the point I was waiting maybe even over three seconds for just a turn! What, chess isn't Crysis, there is no reason for it to start running noticibly slowly!
+Each turn I took, the game took longer and longer to load, to the point I was waiting maybe even over three seconds for just a turn! What, chess isn't Crysis, there is no reason for it to start running noticibly slowly!
 
 ## what caused it?
 
-    The culprit: past states. Luckily, this performance bug was quick to find, because I found it shortly after implementing an undo button. One which used an Array stored of previous states of the chess class, so I can easily go back to a previous one. The issue happened with the way to deep copy objects in ruby-- serializing. Since there is no official way to deep copy an object, the easiest way to make a unique copy is to encode it and then un-encode it. I use marshal to do this in my chess program. What actually happened to the class as I did this turned out to be an interesting math problem.
+The culprit: past states. Luckily, this performance bug was quick to find, because I found it shortly after implementing an undo button. One which used an Array stored of previous states of the chess class, so I can easily go back to a previous one. The issue happened with the way to deep copy objects in ruby-- serializing. Since there is no official way to deep copy an object, the easiest way to make a unique copy is to encode it and then un-encode it. I use marshal to do this in my chess program. What actually happened to the class as I did this turned out to be an interesting math problem.
 
 ### math
 
