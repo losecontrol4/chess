@@ -1,6 +1,6 @@
 # chess
 
-This is my chess!
+This is my chess! Check it out on replit here: https://replit.com/@losecontrol4/chess#main.rb
 
 ## features
 
@@ -13,7 +13,7 @@ En Passant
 
 ## how to play
 
-If you are on repl.it, hit the green run button to start.
+If you are on replit, hit the green run button to start.
 
 else run 'ruby main.rb' with ruby installed to run.
 
