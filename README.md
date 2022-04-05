@@ -126,5 +126,6 @@ The culprit: past states. Luckily, this performance bug was quick to find, becau
     I feel like an exact equation is more of a graduate level math problem.
 
     Conclusion: O(2^N)
+    Exact equation: f(x) = 2^(x - 1) + 2^(x - 2) - 1 (found thanks to the help of people on reddit)
 
     WOW! that grows realllllly fast.
