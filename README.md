@@ -120,12 +120,11 @@ The culprit: past states. Luckily, this performance bug was quick to find, becau
 ### time complexity
 
     After much thinking and experimenting, I reduced the equation to equal f(x) = 2f(x - 1) + 1 : f(2) = 2 : f(1) = 1
-    With this, I generated a program to get a larger lookup table in the bug_time_complexity.rb program. I have deduced this particular
-    problem is around O(2^n) where n is the turn we are on. After much research and creating a lookup table,
+    With this, I generated a program to get a larger lookup table in the bug_time_complexity.rb program. I have deduced this particular problem is O(2^n) where n is the turn we are on. After much research and creating a lookup table,
     I can confidently say it takes no longer than n^2 at any given part, so it is a big Oh notation I am happy with.
     I feel like an exact equation is more of a graduate level math problem.
 
     Conclusion: O(2^N)
-    Exact equation: f(x) = 2^(x - 1) + 2^(x - 2) - 1 (found thanks to the help of people on reddit)
+    Exact equation: f(x) = 2^(x - 1) + 2^(x - 2) - 1 (found thanks to the help of smart people on reddit)
 
     WOW! that grows realllllly fast.
